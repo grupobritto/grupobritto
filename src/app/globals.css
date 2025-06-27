@@ -80,6 +80,16 @@
   --color-highlight: oklch(0.5175 0.1738 27.64);
   --color-borda: oklch(0.8684 0.0176 248.03);
   --color-texto: oklch(0.5794 0.0355 251.32);
+
+  --tamilis: oklch(0.656 0.241 354.308);
+  --neusa: oklch(0.6268 0.2325 303.9);
+  --felipe: oklch(0.585 0.233 277.117);
+  --jose: oklch(0.723 0.219 149.579);
+
+  --tamilis-hover: oklch(0.525 0.223 3.958);
+  --neusa-hover: oklch(0.496 0.265 301.924);
+  --felipe-hover: oklch(0.457 0.24 277.023);
+  --jose-hover: oklch(0.508 0.118 165.612);
 }
 
 .dark {
@@ -120,6 +130,16 @@
   --color-highlight: oklch(0.661 0.1469 26.33);
   --color-borda: oklch(0.4866 0.0346 243.97);
   --color-texto: oklch(0.6854 0.036 251.11);
+
+  --tamilis: oklch(0.7253 0.1752 349.76);
+  --neusa: oklch(0.714 0.203 305.504);
+  --felipe: oklch(0.673 0.182 276.935);
+  --jose: oklch(79.2% 0.209 151.711);
+
+  --tamilis-hover: oklch(0.823 0.12 346.018);
+  --neusa-hover: oklch(0.827 0.119 306.383);
+  --felipe-hover: oklch(0.785 0.115 274.713);
+  --jose-hover: oklch(0.845 0.143 164.978);
 }
 
 @layer base {
