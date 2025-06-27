@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -127,6 +127,6 @@
     @apply border-(--color-highlight) outline-(--color-highlight);
   }
   body {
-    @apply bg-(--color-background-geral) text-foreground;
+    @apply text-foreground bg-(--color-background-geral);
   }
 }
