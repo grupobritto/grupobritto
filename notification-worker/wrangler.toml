@@ -1,0 +1,12 @@
+name = "juscheck-notification-worker"
+main = "src/index.ts"
+compatibility_date = "2024-05-01"
+
+[triggers]
+# Voltamos a um cron que dispara a cada 2 horas para verificar todos os processos
+crons = ["0 */8 * * *"] 
+
+[[d1_databases]]
+binding = "DB"
+database_name = "juscheck-db"
+database_id = "862ebd8e-63fe-4a83-89fa-0a385fc4ac82"
