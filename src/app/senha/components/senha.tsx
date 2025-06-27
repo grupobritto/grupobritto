@@ -108,10 +108,16 @@ export default function Senha() {
               </label>
             </div>
 
-            <Button onClick={handleGerar}>Gerar Senha</Button>
+            <Button onClick={handleGerar} className="hover:bg-(--color-highlight) hover:text-white">
+              Gerar Senha
+            </Button>
 
             {gerado && (
-              <Button variant="outline" onClick={handleCopiar}>
+              <Button
+                variant="outline"
+                className="hover:bg-(--color-highlight) hover:text-white"
+                onClick={handleCopiar}
+              >
                 {copiado ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
                 {copiado ? 'Copiado!' : 'Copiar'}
               </Button>

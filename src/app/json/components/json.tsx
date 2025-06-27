@@ -108,14 +108,17 @@ export default function Json() {
                 </div>
 
                 <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-end sm:justify-end">
-                  <Button onClick={gerar} className="w-full sm:w-auto">
+                  <Button
+                    onClick={gerar}
+                    className="w-full hover:bg-(--color-highlight) hover:text-white sm:w-auto"
+                  >
                     Gerar JSON
                   </Button>
                   {resultado && (
                     <Button
                       onClick={copiar}
                       variant="secondary"
-                      className="flex w-full items-center gap-2 sm:w-auto"
+                      className="flex w-full items-center gap-2 hover:bg-(--color-highlight) hover:text-white sm:w-auto"
                     >
                       {copiado ? <CheckIcon /> : <ClipboardIcon />}
                       {copiado ? 'Copiado!' : 'Copiar JSON'}
