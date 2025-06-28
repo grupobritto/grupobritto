@@ -4,9 +4,9 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <>
-      <main className="flex h-screen items-center justify-center bg-(--color-background-geral)">
+      <main className="flex h-screen items-center justify-center">
         <div>
-          <div className="flex space-x-4">
+          <div className="grid gap-y-2">
             <div className="flex w-48 items-center justify-center rounded bg-neutral-100 p-3 text-zinc-900 hover:bg-(--color-highlight) hover:text-white">
               <Link href={'/json'} className="flex">
                 <FileJson2 className="mr-2" />
