@@ -154,9 +154,8 @@ export default function DashboardPrincipalPage() {
   const ActivityChart = activityChartType === 'bar' ? Bar : Line;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-(--color-background-geral)">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="font-heading text-3xl font-bold">Dashboard</h1>
         <div className="w-full sm:w-[180px]">
           <Select value={dateRange} onValueChange={setDateRange}>
             <SelectTrigger>

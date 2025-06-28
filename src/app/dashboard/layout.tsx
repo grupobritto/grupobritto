@@ -4,6 +4,7 @@ import { Sidebar } from './components/sidebar';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
@@ -50,13 +51,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       )}
 
       {/* --- Conteúdo Principal --- */}
-      <main className="flex w-full flex-1 flex-col">
+      <main className="flex w-full flex-1 flex-col bg-(--color-background-geral)">
         {/* Header para Mobile (agora vive no layout) */}
-        <div className="sticky top-0 z-40 flex items-center justify-between border-b bg-(--color-background-geral) p-4 md:hidden">
+        <div className="sticky top-0 z-40 flex items-center justify-between bg-(--color-background-menus) p-4 md:hidden">
           <Link href="/dashboard">
-            <h1 className="bg-gradient-to-r from-[#EE2026] via-[#FFFFFF] to-[#A7CF3B] bg-clip-text text-4xl font-bold tracking-widest text-transparent uppercase">
-              JusCheck
-            </h1>
+            <div className="flex items-center space-x-2">
+              <Image
+                src="/logo.png"
+                width={40}
+                height={40}
+                alt="Picture of the author"
+                className="rounded"
+              />
+              <h1 className="text-3xl font-bold uppercase">JusCheck</h1>
+            </div>
           </Link>
           <Button
             variant="ghost"
