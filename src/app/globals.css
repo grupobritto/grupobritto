@@ -124,9 +124,9 @@
 
 @layer base {
   * {
-    @apply border-(--color-highlight) outline-(--color-highlight);
+    @apply border-zinc-400 outline-none;
   }
   body {
-    @apply text-foreground bg-(--color-background-geral);
+    @apply bg-white text-black;
   }
 }
