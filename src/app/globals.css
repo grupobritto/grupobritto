@@ -127,6 +127,6 @@
     @apply border-(--color-highlight) outline-(--color-highlight);
   }
   body {
-    @apply text-foreground bg-(--color-background-geral);
+    @apply text-foreground bg-zinc-900;
   }
 }
