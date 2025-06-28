@@ -178,7 +178,7 @@ export default function Justifica() {
                   <span className="font-bold">(data)</span>
                 </span>
               </div>
-              <span className="text-[16px]">(Protocolo do Dep. de Recursos Humanos)</span>
+              <span className="text-[13px]">Protocolo do Dep. de Recursos Humanos</span>
             </div>
             <div className="my-5 flex-col items-center space-y-2">
               <div className="flex items-center gap-2">
@@ -195,7 +195,7 @@ export default function Justifica() {
                   <span className="font-bold">(data)</span>
                 </span>
               </div>
-              <span className="text-[16px]">(Secretário da Saúde)</span>
+              <span className="text-[13px]">Secretário(a) da Saúde</span>
             </div>
           </div>
           <hr className="my-2" />
