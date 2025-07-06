@@ -7,9 +7,10 @@
 
 ## Se necessario
 
-1. npm install @types/node@latest @types/react@latest @types/react-dom@latest --save-dev
-2. npm install --save-dev prettier prettier-plugin-tailwindcss
-3. npm install --save-dev eslint-config-prettier eslint-plugin-prettier prettier
+1. npm install --save-dev @types/node@latest @types/react@latest @types/react-dom@latest
+2. npm install --save-dev @cloudflare/next-on-pages @cloudflare/workers-types
+3. npm install --save-dev prettier prettier-plugin-tailwindcss
+4. npm install --save-dev eslint-config-prettier eslint-plugin-prettier prettier
 
 ## Validar arquivos
 
