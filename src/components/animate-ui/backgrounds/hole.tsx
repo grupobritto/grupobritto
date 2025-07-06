@@ -5,6 +5,63 @@ import { motion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 
+// --- Type Definitions for state and animated objects ---
+
+type Point = {
+  x: number;
+  y: number;
+};
+
+type Disc = {
+  p: number;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+};
+
+type Particle = {
+  x: number;
+  sx: number;
+  dx: number;
+  y: number;
+  vy: number;
+  p: number;
+  r: number;
+  c: string;
+};
+
+type Clip = {
+  disc?: Disc;
+  i?: number;
+  path?: Path2D;
+};
+
+type ParticleArea = {
+  sw: number;
+  ew: number;
+  h: number;
+  sx: number;
+  ex: number;
+};
+
+// --- Main State Interface ---
+
+interface State {
+  discs: Disc[];
+  lines: Point[][];
+  particles: Particle[];
+  clip: Clip;
+  startDisc: Partial<Disc>;
+  endDisc: Partial<Disc>;
+  rect: { width: number; height: number };
+  render: { width: number; height: number; dpi: number };
+  particleArea: Partial<ParticleArea>;
+  linesCanvas: HTMLCanvasElement | null;
+}
+
+// --- Component Props ---
+
 type HoleBackgroundProps = React.ComponentProps<'div'> & {
   strokeColor?: string;
   numberOfLines?: number;
@@ -23,10 +80,10 @@ function HoleBackground({
 }: HoleBackgroundProps) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const animationFrameIdRef = React.useRef<number>(0);
-  const stateRef = React.useRef<any>({
-    discs: [] as any[],
-    lines: [] as any[],
-    particles: [] as any[],
+  const stateRef = React.useRef<State>({
+    discs: [],
+    lines: [],
+    particles: [],
     clip: {},
     startDisc: {},
     endDisc: {},
@@ -49,12 +106,12 @@ function HoleBackground({
   );
 
   const tweenDisc = React.useCallback(
-    (disc: any) => {
+    (disc: Disc) => {
       const { startDisc, endDisc } = stateRef.current;
-      disc.x = tweenValue(startDisc.x, endDisc.x, disc.p);
-      disc.y = tweenValue(startDisc.y, endDisc.y, disc.p, 'inExpo');
-      disc.w = tweenValue(startDisc.w, endDisc.w, disc.p);
-      disc.h = tweenValue(startDisc.h, endDisc.h, disc.p);
+      disc.x = tweenValue(startDisc.x!, endDisc.x!, disc.p);
+      disc.y = tweenValue(startDisc.y!, endDisc.y!, disc.p, 'inExpo');
+      disc.w = tweenValue(startDisc.w!, endDisc.w!, disc.p);
+      disc.h = tweenValue(startDisc.h!, endDisc.h!, disc.p);
     },
     [tweenValue],
   );
@@ -92,7 +149,7 @@ function HoleBackground({
     stateRef.current.clip = {};
     for (let i = 0; i < numberOfDiscs; i++) {
       const p = i / numberOfDiscs;
-      const disc = { p, x: 0, y: 0, w: 0, h: 0 };
+      const disc: Disc = { p, x: 0, y: 0, w: 0, h: 0 };
       tweenDisc(disc);
       const bottom = disc.y + disc.h;
       if (bottom <= prevBottom) {
@@ -102,7 +159,7 @@ function HoleBackground({
       stateRef.current.discs.push(disc);
     }
     const clipPath = new Path2D();
-    const disc = stateRef.current.clip.disc;
+    const disc = stateRef.current.clip.disc!;
     clipPath.ellipse(disc.x, disc.y, disc.w, disc.h, 0, 0, Math.PI * 2);
     clipPath.rect(disc.x - disc.w, 0, disc.w * 2, disc.y);
     stateRef.current.clip.path = clipPath;
@@ -115,10 +172,10 @@ function HoleBackground({
     for (let i = 0; i < numberOfLines; i++) {
       stateRef.current.lines.push([]);
     }
-    stateRef.current.discs.forEach((disc: any) => {
+    stateRef.current.discs.forEach((disc) => {
       for (let i = 0; i < numberOfLines; i++) {
         const angle = i * linesAngle;
-        const p = {
+        const p: Point = {
           x: disc.x + Math.cos(angle) * disc.w,
           y: disc.y + Math.sin(angle) * disc.h,
         };
@@ -129,21 +186,21 @@ function HoleBackground({
     offCanvas.width = width;
     offCanvas.height = height;
     const ctx = offCanvas.getContext('2d');
-    if (!ctx) return;
-    stateRef.current.lines.forEach((line: any) => {
+    if (!ctx || !stateRef.current.clip.path) return;
+    stateRef.current.lines.forEach((line) => {
       ctx.save();
       let lineIsIn = false;
-      line.forEach((p1: any, j: number) => {
+      line.forEach((p1, j) => {
         if (j === 0) return;
         const p0 = line[j - 1];
         if (
           !lineIsIn &&
-          (ctx.isPointInPath(stateRef.current.clip.path, p1.x, p1.y) ||
-            ctx.isPointInStroke(stateRef.current.clip.path, p1.x, p1.y))
+          (ctx.isPointInPath(stateRef.current.clip.path!, p1.x, p1.y) ||
+            ctx.isPointInStroke(stateRef.current.clip.path!, p1.x, p1.y))
         ) {
           lineIsIn = true;
         } else if (lineIsIn) {
-          ctx.clip(stateRef.current.clip.path);
+          ctx.clip(stateRef.current.clip.path!);
         }
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
@@ -159,15 +216,12 @@ function HoleBackground({
   }, [numberOfLines, strokeColor]);
 
   const initParticle = React.useCallback(
-    (start: boolean = false) => {
-      const sx =
-        stateRef.current.particleArea.sx + stateRef.current.particleArea.sw * Math.random();
-      const ex =
-        stateRef.current.particleArea.ex + stateRef.current.particleArea.ew * Math.random();
+    (start = false): Particle => {
+      const area = stateRef.current.particleArea;
+      const sx = area.sx! + area.sw! * Math.random();
+      const ex = area.ex! + area.ew! * Math.random();
       const dx = ex - sx;
-      const y = start
-        ? stateRef.current.particleArea.h * Math.random()
-        : stateRef.current.particleArea.h;
+      const y = start ? area.h! * Math.random() : area.h!;
       const r = 0.5 + Math.random() * 4;
       const vy = 0.5 + Math.random();
       return {
@@ -187,14 +241,14 @@ function HoleBackground({
   const setParticles = React.useCallback(() => {
     const { width, height } = stateRef.current.rect;
     stateRef.current.particles = [];
-    const disc = stateRef.current.clip.disc;
+    const disc = stateRef.current.clip.disc!;
     stateRef.current.particleArea = {
       sw: disc.w * 0.5,
       ew: disc.w * 2,
       h: height * 0.85,
     };
-    stateRef.current.particleArea.sx = (width - stateRef.current.particleArea.sw) / 2;
-    stateRef.current.particleArea.ex = (width - stateRef.current.particleArea.ew) / 2;
+    stateRef.current.particleArea.sx = (width - stateRef.current.particleArea.sw!) / 2;
+    stateRef.current.particleArea.ex = (width - stateRef.current.particleArea.ew!) / 2;
     const totalParticles = 100;
     for (let i = 0; i < totalParticles; i++) {
       stateRef.current.particles.push(initParticle(true));
@@ -203,24 +257,25 @@ function HoleBackground({
 
   const drawDiscs = React.useCallback(
     (ctx: CanvasRenderingContext2D) => {
+      if (!stateRef.current.clip.disc) return;
       ctx.strokeStyle = strokeColor;
       ctx.lineWidth = 2;
       const outerDisc = stateRef.current.startDisc;
       ctx.beginPath();
-      ctx.ellipse(outerDisc.x, outerDisc.y, outerDisc.w, outerDisc.h, 0, 0, Math.PI * 2);
+      ctx.ellipse(outerDisc.x!, outerDisc.y!, outerDisc.w!, outerDisc.h!, 0, 0, Math.PI * 2);
       ctx.stroke();
       ctx.closePath();
-      stateRef.current.discs.forEach((disc: any, i: number) => {
+      stateRef.current.discs.forEach((disc, i) => {
         if (i % 5 !== 0) return;
-        if (disc.w < stateRef.current.clip.disc.w - 5) {
+        if (disc.w < stateRef.current.clip.disc!.w - 5) {
           ctx.save();
-          ctx.clip(stateRef.current.clip.path);
+          ctx.clip(stateRef.current.clip.path!);
         }
         ctx.beginPath();
         ctx.ellipse(disc.x, disc.y, disc.w, disc.h, 0, 0, Math.PI * 2);
         ctx.stroke();
         ctx.closePath();
-        if (disc.w < stateRef.current.clip.disc.w - 5) {
+        if (disc.w < stateRef.current.clip.disc!.w - 5) {
           ctx.restore();
         }
       });
@@ -235,9 +290,10 @@ function HoleBackground({
   }, []);
 
   const drawParticles = React.useCallback((ctx: CanvasRenderingContext2D) => {
+    if (!stateRef.current.clip.path) return;
     ctx.save();
     ctx.clip(stateRef.current.clip.path);
-    stateRef.current.particles.forEach((particle: any) => {
+    stateRef.current.particles.forEach((particle) => {
       ctx.fillStyle = particle.c;
       ctx.beginPath();
       ctx.rect(particle.x, particle.y, particle.r, particle.r);
@@ -248,15 +304,15 @@ function HoleBackground({
   }, []);
 
   const moveDiscs = React.useCallback(() => {
-    stateRef.current.discs.forEach((disc: any) => {
+    stateRef.current.discs.forEach((disc) => {
       disc.p = (disc.p + 0.001) % 1;
       tweenDisc(disc);
     });
   }, [tweenDisc]);
 
   const moveParticles = React.useCallback(() => {
-    stateRef.current.particles.forEach((particle: any, idx: number) => {
-      particle.p = 1 - particle.y / stateRef.current.particleArea.h;
+    stateRef.current.particles.forEach((particle, idx) => {
+      particle.p = 1 - particle.y / stateRef.current.particleArea.h!;
       particle.x = particle.sx + particle.dx * particle.p;
       particle.y -= particle.vy;
       if (particle.y < 0) {
@@ -290,22 +346,17 @@ function HoleBackground({
   }, [setSize, setDiscs, setLines, setParticles]);
 
   React.useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
     init();
     tick();
     const handleResize = () => {
-      setSize();
-      setDiscs();
-      setLines();
-      setParticles();
+      init();
     };
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameIdRef.current);
     };
-  }, [init, tick, setSize, setDiscs, setLines, setParticles]);
+  }, [init, tick]);
 
   return (
     <div

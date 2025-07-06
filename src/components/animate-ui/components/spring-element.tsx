@@ -72,7 +72,7 @@ const generateSpringPath = (
   return path.join(' ');
 };
 
-function useMotionValueValue(mv: any) {
+function useMotionValueValue(mv: { get(): number; on(event: 'change', fn: () => void): () => void }) {
   return React.useSyncExternalStore(
     (callback) => {
       const unsub = mv.on('change', callback);
@@ -149,11 +149,7 @@ function SpringElement({
   }, []);
 
   React.useEffect(() => {
-    if (isDragging) {
-      document.body.style.cursor = 'grabbing';
-    } else {
-      document.body.style.cursor = 'default';
-    }
+    document.body.style.cursor = isDragging ? 'grabbing' : 'default';
   }, [isDragging]);
 
   const path = generateSpringPath(
@@ -184,16 +180,11 @@ function SpringElement({
       <motion.div
         ref={childRef}
         className={cn('z-50', isDragging ? 'cursor-grabbing' : 'cursor-grab', className)}
-        style={{
-          x: springX,
-          y: springY,
-        }}
+        style={{ x: springX, y: springY }}
         drag
         dragElastic={dragElastic}
         dragMomentum={false}
-        onDragStart={() => {
-          setIsDragging(true);
-        }}
+        onDragStart={() => setIsDragging(true)}
         onDrag={(_, info) => {
           x.set(info.offset.x);
           y.set(info.offset.y);
