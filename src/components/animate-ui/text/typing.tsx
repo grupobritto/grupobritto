@@ -69,24 +69,21 @@ function TypingText({
   const [displayedText, setDisplayedText] = React.useState<string>('');
 
   React.useEffect(() => {
-    // Reset animation when text changes (if animateOnChange is true)
     if (animateOnChange) {
       setStarted(false);
       setDisplayedText('');
     }
+  }, [text, animateOnChange]);
 
-    if (isInView) {
-      const timeoutId = setTimeout(() => {
-        setStarted(true);
-      }, delay);
-      return () => clearTimeout(timeoutId);
-    } else {
-      const timeoutId = setTimeout(() => {
-        setStarted(true);
-      }, delay);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [isInView, delay, ...(animateOnChange ? [text] : [])]);
+  React.useEffect(() => {
+    if (!isInView) return;
+
+    const timeoutId = setTimeout(() => {
+      setStarted(true);
+    }, delay);
+
+    return () => clearTimeout(timeoutId);
+  }, [isInView, delay]);
 
   React.useEffect(() => {
     if (!started) return;

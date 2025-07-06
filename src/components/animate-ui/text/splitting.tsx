@@ -4,7 +4,9 @@ import * as React from 'react';
 import {
   motion,
   type Variants,
+  type Target,
   type TargetAndTransition,
+  type Transition,
   type HTMLMotionProps,
   useInView,
   type UseInViewOptions,
@@ -12,9 +14,9 @@ import {
 
 type DefaultSplittingTextProps = {
   motionVariants?: {
-    initial?: Record<string, any>;
-    animate?: Record<string, any>;
-    transition?: Record<string, any>;
+    initial?: Target;
+    animate?: TargetAndTransition;
+    transition?: Transition;
     stagger?: number;
   };
   inView?: boolean;
