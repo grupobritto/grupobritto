@@ -2,9 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/provider';
 import { Toaster } from '@/components/ui/sonner';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
-import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
   title: 'Faculdade - Grupo Britto',
@@ -13,9 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
-  const cookieStore = cookies();
-  const defaultOpen = (await cookieStore).get('sidebar_state')?.value === 'true';
-
   return (
     <html suppressHydrationWarning>
       <body>
@@ -25,12 +19,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider defaultOpen={defaultOpen}>
-            <div className="flex h-screen w-full">
-              <AppSidebar />
-              <main className="flex flex-1 items-center justify-center">{children}</main>
-            </div>
-          </SidebarProvider>
+          {children}
         </ThemeProvider>
         <Toaster />
       </body>
