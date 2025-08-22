@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Dosimetria from './components/main';
 
 export const metadata: Metadata = {
   title: 'Calculadora de Dosimetria Penal',
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 export default function Name() {
   return (
     <>
-      <main></main>
+      <Dosimetria />
     </>
   );
 }
