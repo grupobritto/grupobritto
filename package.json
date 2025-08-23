@@ -55,16 +55,16 @@
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.62.0",
     "react-icons": "^5.5.0",
-    "react-resizable-panels": "^3.0.4",
+    "react-resizable-panels": "^3.0.5",
     "recharts": "^3.1.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
     "vaul": "^1.1.2",
-    "zod": "^4.0.17"
+    "zod": "^4.1.0"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.14",
-    "@cloudflare/workers-types": "^4.20250822.0",
+    "@cloudflare/workers-types": "^4.20250823.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24.3.0",
