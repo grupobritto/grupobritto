@@ -15,7 +15,7 @@ interface Crime {
   meses: number;
   dias: number;
   diasMulta: number;
-  operacao: '+' | '-';
+  operacao: '++' | '-';
   numerador: number;
   denominador: number;
 }
