@@ -48,14 +48,21 @@
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
+<<<<<<< HEAD
     "lucide-react": "^0.541.0",
     "motion": "^12.23.12",
     "next": "^15.5.0",
+=======
+    "lucide-react": "^0.534.0",
+    "motion": "^12.23.12",
+    "next": "^15.4.5",
+>>>>>>> parent of 748ca9c (!)
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
     "react": "^19.1.1",
     "react-day-picker": "^9.9.0",
     "react-dom": "^19.1.1",
+<<<<<<< HEAD
     "react-hook-form": "^7.62.0",
     "react-resizable-panels": "^3.0.5",
     "react-use-measure": "^2.1.7",
@@ -76,8 +83,30 @@
     "@types/react-dom": "^19.1.7",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
+=======
+    "react-hook-form": "^7.61.1",
+    "react-resizable-panels": "^3.0.4",
+    "react-use-measure": "^2.1.7",
+    "recharts": "^3.1.0",
+    "shiki": "^3.8.1",
+    "sonner": "^2.0.6",
+    "tailwind-merge": "^3.3.1",
+    "vaul": "^1.1.2",
+    "zod": "^4.0.14"
+  },
+  "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.13",
+    "@cloudflare/workers-types": "^4.20250730.0",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.5",
+>>>>>>> parent of 748ca9c (!)
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-prettier": "^5.5.3",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4",
