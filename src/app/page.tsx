@@ -164,10 +164,9 @@ export default function Justifica() {
                 Balneário Gaivota, <input type="date" className="rounded font-bold text-zinc-900" />
               </span>
             </div>
-            <div className="">
+            <div className="mb-15">
               <span className="">Assinatura do funcionário:</span>
             </div>
-            <hr className="my-2" />
           </div>
           <div className="flex items-center justify-between">
             <div className="my-4">
