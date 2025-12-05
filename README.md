@@ -1,23 +1,37 @@
-## Update files
+# 🛠️ Guia de Atualização e Validação do Projeto
 
-1. npm install next@latest react@latest react-dom@latest
-2. ncu
-3. ncu -u
-4. npm install
+## 🔄 Atualizar pacotes principais
 
-## Se necessario
+1. 📦 `npm install next@latest react@latest react-dom@latest`
+2. 🔍 `ncu`
+3. ⚙️ `ncu -u`
+4. 📥 `npm install`
 
-1. npm install --save-dev @types/node@latest @types/react@latest @types/react-dom@latest
-2. npm install --save-dev @cloudflare/next-on-pages @cloudflare/workers-types
-3. npm install --save-dev prettier prettier-plugin-tailwindcss
-4. npm install --save-dev eslint-config-prettier eslint-plugin-prettier prettier
+---
 
-## Validar arquivos
+## 🧩 Dependências opcionais (se necessário)
 
-1. npm run lint
-2. npm run lint:fix
+### 📘 Tipos
+1. 🧠 `npm install --save-dev @types/node@latest @types/react@latest @types/react-dom@latest`
 
-3. npm run format:check
-4. npm run format
+### ☁️ Cloudflare
+2. 🌐 `npm install --save-dev @cloudflare/next-on-pages @cloudflare/workers-types`
 
-5. npm run nlint
+### 🎨 Formatação e estilo
+3. ✨ `npm install --save-dev prettier prettier-plugin-tailwindcss`
+4. 🧹 `npm install --save-dev eslint-config-prettier eslint-plugin-prettier prettier`
+
+---
+
+## ✅ Validação de arquivos
+
+### 🔎 Lint
+1. 🧪 `npm run lint`
+2. 🛠️ `npm run lint:fix`
+
+### 📏 Formatação
+3. 🔍 `npm run format:check`
+4. 🎯 `npm run format`
+
+### 🧹 Lint adicional
+5. 🐜 `npm run nlint`
